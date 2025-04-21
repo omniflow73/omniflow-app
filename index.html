@@ -1,75 +1,52 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OmniFlow – Offline Productivity</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniFlow - Tasks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
-<body>
-  <div class="navbar">
-    <h1>OmniFlow</h1>
-    <nav>
-      <button onclick="showTab('tasks')">Tasks</button>
-      <button onclick="showTab('calendar')">Calendar</button>
-      <button onclick="showTab('focus')">Focus</button>
-      <button onclick="showTab('habits')">Habits</button>
-      <button onclick="showTab('notes')">Notes</button>
-      <button onclick="showTab('assistant')">AI Assistant</button>
-    </nav>
-  </div>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+  <main class="p-4 pb-20">
+    <h1 class="text-2xl font-semibold mb-4">Tasks</h1>
+    <ul class="space-y-3">
+      <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">✅ Finish OmniFlow layout</li>
+      <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">📚 Read 20 pages</li>
+      <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">💧 Drink water</li>
+    </ul>
+  </main>
 
-  <div class="container">
-    <!-- Tasks Tab -->
-    <section id="tasks" class="tab">
-      <h2>Task Manager</h2>
-      <input id="taskInput" type="text" placeholder="Add a new task..." />
-      <button onclick="addTask()">Add</button>
-      <ul id="taskList"></ul>
-    </section>
+  <nav class="fixed bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
+    <a href="index.html" class="flex flex-col items-center text-blue-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+      <span class="text-xs">Tasks</span>
+    </a>
+    <a href="calendar.html" class="flex flex-col items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 17h14M5 23h14" /></svg>
+      <span class="text-xs">Calendar</span>
+    </a>
+    <a href="habits.html" class="flex flex-col items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" /></svg>
+      <span class="text-xs">Habits</span>
+    </a>
+    <a href="notes.html" class="flex flex-col items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" /></svg>
+      <span class="text-xs">Notes</span>
+    </a>
+    <a href="settings.html" class="flex flex-col items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0-6V9m0 4h.01" /></svg>
+      <span class="text-xs">Settings</span>
+    </a>
+  </nav>
 
-    <!-- Calendar Tab -->
-    <section id="calendar" class="tab">
-      <h2>Calendar</h2>
-      <input type="date" id="calendarDate" />
-      <input type="text" id="calendarEvent" placeholder="Event description" />
-      <button onclick="addCalendarEvent()">Add Event</button>
-      <ul id="calendarList"></ul>
-    </section>
-
-    <!-- Focus Tab -->
-    <section id="focus" class="tab">
-      <h2>Pomodoro Timer</h2>
-      <div id="timerDisplay">25:00</div>
-      <button onclick="startTimer()">Start</button>
-      <button onclick="resetTimer()">Reset</button>
-    </section>
-
-    <!-- Habits Tab -->
-    <section id="habits" class="tab">
-      <h2>Habit Tracker</h2>
-      <input id="habitInput" type="text" placeholder="New habit..." />
-      <button onclick="addHabit()">Add Habit</button>
-      <ul id="habitList"></ul>
-    </section>
-
-    <!-- Notes Tab -->
-    <section id="notes" class="tab">
-      <h2>Notes</h2>
-      <textarea id="noteInput" placeholder="Write something..."></textarea>
-      <button onclick="saveNote()">Save Note</button>
-      <ul id="noteList"></ul>
-    </section>
-
-    <!-- AI Assistant Tab (Placeholder UI) -->
-    <section id="assistant" class="tab">
-      <h2>Local AI Assistant</h2>
-      <p>This will include features like smart planning, note summarizing, and task prioritization – all offline.</p>
-      <textarea placeholder="Ask something like 'Plan my day' or 'Summarize this note'..."></textarea>
-      <button disabled>Run Assistant (coming soon)</button>
-    </section>
-  </div>
-
-  <script src="script.js"></script>
+  <script>
+    // Optional: Add dark mode toggle support later here
+  </script>
 </body>
 </html>
+
