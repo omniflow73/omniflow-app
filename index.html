@@ -1,52 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OmniFlow - Tasks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OmniFlow – Tasks</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { font-family: 'Poppins', sans-serif; }
+    .gradient-bg {
+      background: linear-gradient(135deg, #6EE7B7, #3B82F6);
+    }
   </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-  <main class="p-4 pb-20">
-    <h1 class="text-2xl font-semibold mb-4">Tasks</h1>
-    <ul class="space-y-3">
-      <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">✅ Finish OmniFlow layout</li>
-      <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">📚 Read 20 pages</li>
-      <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">💧 Drink water</li>
-    </ul>
-  </main>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition duration-300">
 
-  <nav class="fixed bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
-    <a href="index.html" class="flex flex-col items-center text-blue-600">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-      <span class="text-xs">Tasks</span>
+  <!-- Header -->
+  <div class="p-6 text-center text-2xl font-semibold border-b border-gray-200 dark:border-gray-700">
+    📝 Tasks Overview
+  </div>
+
+  <!-- Task List -->
+  <div class="p-4 space-y-6">
+    <!-- Task Card 1 -->
+    <div class="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+      <div class="flex justify-between items-center text-white">
+        <span>🌞 Morning Routine</span>
+        <input type="checkbox" class="w-6 h-6 text-white border-white rounded-md focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+
+    <!-- Task Card 2 -->
+    <div class="bg-gradient-to-r from-pink-500 via-yellow-500 to-red-500 p-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+      <div class="flex justify-between items-center text-white">
+        <span>📚 Read 10 Pages</span>
+        <input type="checkbox" class="w-6 h-6 text-white border-white rounded-md focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+
+    <!-- Task Card 3 -->
+    <div class="bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+      <div class="flex justify-between items-center text-white">
+        <span>🏃 Walk 5,000 Steps</span>
+        <input type="checkbox" class="w-6 h-6 text-white border-white rounded-md focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
+    <a href="index.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
+      <div>📋</div><div>Tasks</div>
     </a>
-    <a href="calendar.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 17h14M5 23h14" /></svg>
-      <span class="text-xs">Calendar</span>
+    <a href="calendar.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
+      <div>📅</div><div>Calendar</div>
     </a>
-    <a href="habits.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" /></svg>
-      <span class="text-xs">Habits</span>
+    <a href="habits.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
+      <div>🔁</div><div>Habits</div>
     </a>
-    <a href="notes.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" /></svg>
-      <span class="text-xs">Notes</span>
+    <a href="notes.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
+      <div>📝</div><div>Notes</div>
     </a>
-    <a href="settings.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0-6V9m0 4h.01" /></svg>
-      <span class="text-xs">Settings</span>
+    <a href="settings.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
+      <div>⚙️</div><div>Settings</div>
     </a>
   </nav>
 
+  <!-- Dark Mode Toggle Script -->
   <script>
-    // Optional: Add dark mode toggle support later here
+    const toggle = document.getElementById('darkToggle');
+    const userPref = localStorage.getItem('theme');
+    if (userPref === 'dark') {
+      document.documentElement.classList.add('dark');
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', () => {
+      document.documentElement.classList.toggle('dark');
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
   </script>
 </body>
 </html>
-
