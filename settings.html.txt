@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OmniFlow – Settings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition duration-300">
+  <!-- Header -->
+  <div class="p-4 text-center text-xl font-semibold border-b border-gray-200 dark:border-gray-700">
+    Settings
+  </div>
+
+  <!-- Settings Content -->
+  <div class="p-4 space-y-6">
+
+    <!-- Dark Mode Toggle -->
+    <div class="flex items-center justify-between">
+      <span class="text-lg">🌙 Dark Mode</span>
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="darkToggle" class="sr-only peer">
+        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:bg-blue-600 relative">
+          <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition peer-checked:translate-x-5"></div>
+        </div>
+      </label>
+    </div>
+
+    <!-- Manual Export -->
+    <div>
+      <h3 class="text-lg font-semibold mb-2">📁 Data Export</h3>
+      <p class="text-sm mb-2">Your data is stored locally. You can export it anytime:</p>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg">
+        Export as JSON
+      </button>
+    </div>
+
+    <!-- Placeholder Settings -->
+    <div>
+      <h3 class="text-lg font-semibold mb-2">🎨 Personalization</h3>
+      <p class="text-sm">Custom themes, font size, and layout options coming soon!</p>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
+    <a href="index.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
+      <div>📋</div><div>Tasks</div>
+    </a>
+    <a href="calendar.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
+      <div>📅</div><div>Calendar</div>
+    </a>
+    <a href="habits.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
+      <div>🔁</div><div>Habits</div>
+    </a>
+    <a href="notes.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
+      <div>📝</div><div>Notes</div>
+    </a>
+    <a href="settings.html" class="text-blue-600 dark:text-blue-400 font-semibold text-center text-sm">
+      <div>⚙️</div><div>Settings</div>
+    </a>
+  </nav>
+
+  <script>
+    // Dark Mode Toggle Logic
+    const toggle = document.getElementById('darkToggle');
+    const userPref = localStorage.getItem('theme');
+    if (userPref === 'dark') {
+      document.documentElement.classList.add('dark');
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', () => {
+      document.documentElement.classList.toggle('dark');
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
