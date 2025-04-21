@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OmniFlow – Offline Productivity</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <h1>OmniFlow</h1>
+    <nav>
+      <button onclick="showTab('tasks')">Tasks</button>
+      <button onclick="showTab('calendar')">Calendar</button>
+      <button onclick="showTab('focus')">Focus</button>
+      <button onclick="showTab('habits')">Habits</button>
+      <button onclick="showTab('notes')">Notes</button>
+      <button onclick="showTab('assistant')">AI Assistant</button>
+    </nav>
+  </div>
+
+  <div class="container">
+    <!-- Tasks Tab -->
+    <section id="tasks" class="tab">
+      <h2>Task Manager</h2>
+      <input id="taskInput" type="text" placeholder="Add a new task..." />
+      <button onclick="addTask()">Add</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <!-- Calendar Tab -->
+    <section id="calendar" class="tab">
+      <h2>Calendar</h2>
+      <input type="date" id="calendarDate" />
+      <input type="text" id="calendarEvent" placeholder="Event description" />
+      <button onclick="addCalendarEvent()">Add Event</button>
+      <ul id="calendarList"></ul>
+    </section>
+
+    <!-- Focus Tab -->
+    <section id="focus" class="tab">
+      <h2>Pomodoro Timer</h2>
+      <div id="timerDisplay">25:00</div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="resetTimer()">Reset</button>
+    </section>
+
+    <!-- Habits Tab -->
+    <section id="habits" class="tab">
+      <h2>Habit Tracker</h2>
+      <input id="habitInput" type="text" placeholder="New habit..." />
+      <button onclick="addHabit()">Add Habit</button>
+      <ul id="habitList"></ul>
+    </section>
+
+    <!-- Notes Tab -->
+    <section id="notes" class="tab">
+      <h2>Notes</h2>
+      <textarea id="noteInput" placeholder="Write something..."></textarea>
+      <button onclick="saveNote()">Save Note</button>
+      <ul id="noteList"></ul>
+    </section>
+
+    <!-- AI Assistant Tab (Placeholder UI) -->
+    <section id="assistant" class="tab">
+      <h2>Local AI Assistant</h2>
+      <p>This will include features like smart planning, note summarizing, and task prioritization – all offline.</p>
+      <textarea placeholder="Ask something like 'Plan my day' or 'Summarize this note'..."></textarea>
+      <button disabled>Run Assistant (coming soon)</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
