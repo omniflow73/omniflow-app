@@ -1,88 +1,242 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OmniFlow – Tasks</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .gradient-bg {
-      background: linear-gradient(135deg, #6EE7B7, #3B82F6);
-    }
-  </style>
-</head>
-<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition duration-300">
+"use client";
+import * as React from "react";
+import { useState } from "react";
 
-  <!-- Header -->
-  <div class="p-6 text-center text-2xl font-semibold border-b border-gray-200 dark:border-gray-700">
-    📝 Tasks Overview
-  </div>
+function TaskManager() {
+  const [categories, setCategories] = useState(() => [
+    "Work",
+    "Personal",
+    "Health",
+    "Learning",
+  ]);
 
-  <!-- Task List -->
-  <div class="p-4 space-y-6">
-    <!-- Task Card 1 -->
-    <div class="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
-      <div class="flex justify-between items-center text-white">
-        <span>🌞 Morning Routine</span>
-        <input type="checkbox" class="w-6 h-6 text-white border-white rounded-md focus:ring-2 focus:ring-blue-500" />
-      </div>
+  const [priorities, setPriorities] = useState(() => [
+    "Low",
+    "Medium",
+    "High",
+    "Urgent",
+  ]);
+
+  const [selectedCategory, setSelectedCategory] = useState(() => "All");
+
+  const [showTaskDetails, setShowTaskDetails] = useState(() => false);
+
+  const [selectedTask, setSelectedTask] = useState(() => null);
+
+  const [tasks, setTasks] = useState(() => [
+    {
+      id: 1,
+      title: "🌅 Morning Meditation",
+      completed: false,
+      category: "Health",
+      priority: "High",
+      dueDate: "2024-01-20",
+      notes: "Focus on breathing exercises",
+      timeEstimate: 15,
+      timeSpent: 0,
+      subtasks: [
+        {
+          id: 1.1,
+          title: "Set up meditation space",
+          completed: false,
+        },
+        {
+          id: 1.2,
+          title: "10 min mindfulness",
+          completed: false,
+        },
+      ],
+      shared: ["team@example.com"],
+    },
+    {
+      id: 2,
+      title: "💪 Workout Session",
+      completed: false,
+      category: "Health",
+      priority: "Medium",
+      dueDate: "2024-01-20",
+      notes: "Full body workout",
+      timeEstimate: 45,
+      timeSpent: 0,
+      subtasks: [
+        {
+          id: 2.1,
+          title: "Warm up",
+          completed: false,
+        },
+        {
+          id: 2.2,
+          title: "Main exercise",
+          completed: false,
+        },
+        {
+          id: 2.3,
+          title: "Cool down",
+          completed: false,
+        },
+      ],
+      shared: [],
+    },
+    {
+      id: 3,
+      title: "📊 Daily Planning",
+      completed: false,
+      category: "Work",
+      priority: "High",
+      dueDate: "2024-01-20",
+      notes: "Review goals and set priorities",
+      timeEstimate: 20,
+      timeSpent: 0,
+      subtasks: [
+        {
+          id: 3.1,
+          title: "Review yesterday's progress",
+          completed: false,
+        },
+        {
+          id: 3.2,
+          title: "Set today's priorities",
+          completed: false,
+        },
+      ],
+      shared: ["team@example.com"],
+    },
+  ]);
+
+  function toggleTask(id) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              completed: !task.completed,
+            }
+          : task,
+      ),
+    );
+  }
+
+  return (
+    <div className="bg-white ease-in-out duration-[0.3s] transition-[color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-text-decoration-color,-webkit-backdrop-filter]">
+      <TaskHeader />
+      <TaskList tasks={tasks} toggleTask={toggleTask} />
+      <BottomNavigation />
     </div>
+  );
+}
 
-    <!-- Task Card 2 -->
-    <div class="bg-gradient-to-r from-pink-500 via-yellow-500 to-red-500 p-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
-      <div class="flex justify-between items-center text-white">
-        <span>📚 Read 10 Pages</span>
-        <input type="checkbox" class="w-6 h-6 text-white border-white rounded-md focus:ring-2 focus:ring-blue-500" />
+function TaskHeader() {
+  return (
+    <header className="p-6 text-3xl font-bold leading-9 text-center text-gray-800 border-b">
+      ✨ My Daily Tasks
+    </header>
+  );
+}
+
+function TaskList({ tasks, toggleTask }) {
+  return (
+    <main className="p-4">
+      {tasks?.map((task, index) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          index={index}
+          toggleTask={toggleTask}
+        />
+      ))}
+    </main>
+  );
+}
+
+function TaskItem({ task, index, toggleTask }) {
+  const gradientBackground =
+    index === 0
+      ? "linear-gradient(to right, rgb(74, 222, 128), rgb(59, 130, 246), rgb(147, 51, 234))"
+      : index === 1
+        ? "linear-gradient(to right, rgb(236, 72, 153), rgb(234, 179, 8), rgb(239, 68, 68))"
+        : "linear-gradient(to right, rgb(99, 102, 241), rgb(147, 51, 234), rgb(236, 72, 153))";
+
+  const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
+
+  return (
+    <article
+      className="p-5 mb-5 rounded-2xl shadow-lg transition-all translate-y-0 cursor-pointer duration-[0.3s] ease-[ease]"
+      onClick={() => toggleTask(task.id)}
+      style={{ backgroundImage: gradientBackground }}
+    >
+      <div className="flex justify-between items-center text-white">
+        <div className="flex flex-col flex-1 gap-2">
+          <div className="flex justify-between items-center w-full">
+            <span
+              className="text-lg font-medium"
+              style={{
+                textDecoration: task.completed ? "line-through" : "none",
+                opacity: task.completed ? 0.7 : 1,
+              }}
+            >
+              {task.title}
+            </span>
+            <div className="flex gap-3 items-center">
+              <span className="px-2 py-1 text-sm rounded-xl bg-white bg-opacity-20">
+                {task.category}
+              </span>
+              <span className="text-sm">
+                <span>⏰ </span>
+                <span>{task.timeEstimate}</span>
+                <span>m</span>
+              </span>
+            </div>
+          </div>
+          <div className="flex gap-4 items-center text-sm">
+            <span>
+              <span>📅 </span>
+              <span>{task.dueDate}</span>
+            </span>
+            <span>
+              <span>🎯 </span>
+              <span>{task.priority}</span>
+            </span>
+            {task.subtasks.length > 0 ? (
+              <span>
+                <span>📋 </span>
+                <span>{completedSubtasks}</span>
+                <span>/</span>
+                <span>{task.subtasks.length}</span>
+              </span>
+            ) : null}
+          </div>
+        </div>
+        <input
+          type="checkbox"
+          className="w-6 h-6 cursor-pointer"
+          checked={task.completed}
+          onChange={() => toggleTask(task.id)}
+          aria-label={`Mark ${task.title} as ${task.completed ? "incomplete" : "complete"}`}
+        />
       </div>
-    </div>
+    </article>
+  );
+}
 
-    <!-- Task Card 3 -->
-    <div class="bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
-      <div class="flex justify-between items-center text-white">
-        <span>🏃 Walk 5,000 Steps</span>
-        <input type="checkbox" class="w-6 h-6 text-white border-white rounded-md focus:ring-2 focus:ring-blue-500" />
-      </div>
-    </div>
-  </div>
+function BottomNavigation() {
+  return (
+    <nav className="flex fixed inset-x-0 bottom-0 justify-around py-2 bg-white border-t border-[1px_0px_0px]">
+      <NavItem icon="📋" label="Tasks" />
+      <NavItem icon="📅" label="Calendar" />
+      <NavItem icon="🔁" label="Habits" />
+      <NavItem icon="📝" label="Notes" />
+      <NavItem icon="⚙️" label="Settings" />
+    </nav>
+  );
+}
 
-  <!-- Bottom Navigation -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
-    <a href="index.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
-      <div>📋</div><div>Tasks</div>
-    </a>
-    <a href="calendar.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
-      <div>📅</div><div>Calendar</div>
-    </a>
-    <a href="habits.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
-      <div>🔁</div><div>Habits</div>
-    </a>
-    <a href="notes.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
-      <div>📝</div><div>Notes</div>
-    </a>
-    <a href="settings.html" class="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-white text-center text-sm">
-      <div>⚙️</div><div>Settings</div>
-    </a>
-  </nav>
+function NavItem({ icon, label }) {
+  return (
+    <button className="text-sm leading-5 text-center text-gray-500">
+      <div>{icon}</div>
+      <div>{label}</div>
+    </button>
+  );
+}
 
-  <!-- Dark Mode Toggle Script -->
-  <script>
-    const toggle = document.getElementById('darkToggle');
-    const userPref = localStorage.getItem('theme');
-    if (userPref === 'dark') {
-      document.documentElement.classList.add('dark');
-      toggle.checked = true;
-    }
-
-    toggle.addEventListener('change', () => {
-      document.documentElement.classList.toggle('dark');
-      if (document.documentElement.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-      } else {
-        localStorage.setItem('theme', 'light');
-      }
-    });
-  </script>
-</body>
-</html>
+export default TaskManager;
