@@ -389,3 +389,38 @@ function renderHabits() {
 
 // Initial render
 renderHabits();
+function saveNote() {
+  const input = document.getElementById("noteInput");
+  const content = input.value.trim();
+  if (!content) return;
+
+  let notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.push(content);
+  localStorage.setItem("notes", JSON.stringify(notes));
+  input.value = "";
+  displayNotes();
+}
+
+function deleteNote(index) {
+  let notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.splice(index, 1);
+  localStorage.setItem("notes", JSON.stringify(notes));
+  displayNotes();
+}
+
+function displayNotes() {
+  const notesList = document.getElementById("notesList");
+  notesList.innerHTML = "";
+  const notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.forEach((note, i) => {
+    const div = document.createElement("div");
+    div.className = "note-item";
+    div.innerHTML = `
+      <p>${note}</p>
+      <button onclick="deleteNote(${i})">Delete</button>
+    `;
+    notesList.appendChild(div);
+  });
+}
+
+window.onload = displayNotes;
