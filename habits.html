@@ -3,60 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OmniFlow – Habits</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+  <title>OmniFlow - Habits</title>
+  <link rel="stylesheet" href="habits.css" />
 </head>
-<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition duration-300">
-  <!-- Header -->
-  <div class="p-4 text-center text-xl font-semibold border-b border-gray-200 dark:border-gray-700">
-    Habit Tracker
-  </div>
+<body>
+  <div class="container">
+    <header>
+      <h1>Habits</h1>
+      <button onclick="openHabitModal()">+ Add Habit</button>
+    </header>
 
-  <!-- Habit List -->
-  <div class="p-4 space-y-4">
-    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
-      <div class="flex justify-between items-center">
-        <span>🌞 Morning Routine</span>
-        <input type="checkbox" class="w-5 h-5 text-blue-500" />
-      </div>
-    </div>
-
-    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
-      <div class="flex justify-between items-center">
-        <span>📚 Read 10 pages</span>
-        <input type="checkbox" class="w-5 h-5 text-green-500" />
-      </div>
-    </div>
-
-    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
-      <div class="flex justify-between items-center">
-        <span>🏃 Walk 5,000 steps</span>
-        <input type="checkbox" class="w-5 h-5 text-purple-500" />
-      </div>
+    <div class="habit-list" id="habitList">
+      <!-- Habit cards will be inserted here -->
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
-    <a href="index.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
-      <div>📋</div><div>Tasks</div>
-    </a>
-    <a href="calendar.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
-      <div>📅</div><div>Calendar</div>
-    </a>
-    <a href="habits.html" class="text-blue-600 dark:text-blue-400 font-semibold text-center text-sm">
-      <div>🔁</div><div>Habits</div>
-    </a>
-    <a href="notes.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
-      <div>📝</div><div>Notes</div>
-    </a>
-    <a href="settings.html" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-center text-sm">
-      <div>⚙️</div><div>Settings</div>
-    </a>
-  </nav>
+  <!-- Add Habit Modal -->
+  <div class="modal" id="habitModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeHabitModal()">&times;</span>
+      <h3>New Habit</h3>
+      <input type="text" id="habitName" placeholder="Habit name" />
+      <button onclick="addHabit()">Add</button>
+    </div>
+  </div>
+
+  <script src="habits.js"></script>
 </body>
 </html>
+
