@@ -324,3 +324,68 @@ function getMonthName(monthIndex) {
 
 // Initial call to display the calendar
 displayCalendar();
+let habits = [];
+
+function openHabitModal() {
+  document.getElementById("habitModal").style.display = "flex";
+}
+
+function closeHabitModal() {
+  document.getElementById("habitModal").style.display = "none";
+}
+
+function addHabit() {
+  const name = document.getElementById("habitName").value.trim();
+  if (!name) return;
+
+  const habit = {
+    id: Date.now(),
+    name,
+    progress: Array(7).fill(false) // 7-day weekly tracker
+  };
+
+  habits.push(habit);
+  renderHabits();
+  closeHabitModal();
+  document.getElementById("habitName").value = "";
+}
+
+function toggleDay(habitId, dayIndex) {
+  const habit = habits.find(h => h.id === habitId);
+  if (habit) {
+    habit.progress[dayIndex] = !habit.progress[dayIndex];
+    renderHabits();
+  }
+}
+
+function renderHabits() {
+  const list = document.getElementById("habitList");
+  list.innerHTML = "";
+
+  habits.forEach(habit => {
+    const card = document.createElement("div");
+    card.className = "habit-card";
+
+    const title = document.createElement("div");
+    title.className = "habit-title";
+    title.textContent = habit.name;
+
+    const tracker = document.createElement("div");
+    tracker.className = "tracker";
+
+    for (let i = 0; i < 7; i++) {
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = habit.progress[i];
+      checkbox.onclick = () => toggleDay(habit.id, i);
+      tracker.appendChild(checkbox);
+    }
+
+    card.appendChild(title);
+    card.appendChild(tracker);
+    list.appendChild(card);
+  });
+}
+
+// Initial render
+renderHabits();
