@@ -144,3 +144,79 @@ function loadNotes() {
     list.appendChild(li);
   });
 }
+let notes = [];
+
+function createNote() {
+    document.getElementById("noteModal").style.display = "flex";
+    document.getElementById("noteContent").value = '';
+}
+
+function saveNote() {
+    const content = document.getElementById("noteContent").value.trim();
+    if (content) {
+        notes.push({ id: Date.now(), content });
+        displayNotes();
+        closeModal();
+    }
+}
+
+function closeModal() {
+    document.getElementById("noteModal").style.display = "none";
+}
+
+function displayNotes() {
+    const noteList = document.getElementById("noteList");
+    noteList.innerHTML = '';
+
+    notes.forEach(note => {
+        const noteItem = document.createElement("div");
+        noteItem.className = "note-item";
+        
+        const noteText = document.createElement("p");
+        noteText.textContent = note.content.length > 30 ? note.content.slice(0, 30) + "..." : note.content;
+        
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => deleteNote(note.id);
+        
+        noteItem.appendChild(noteText);
+        noteItem.appendChild(deleteBtn);
+        
+        noteList.appendChild(noteItem);
+    });
+}
+
+function deleteNote(id) {
+    notes = notes.filter(note => note.id !== id);
+    displayNotes();
+}
+
+function searchNotes() {
+    const searchQuery = document.getElementById("search").value.toLowerCase();
+    const filteredNotes = notes.filter(note => note.content.toLowerCase().includes(searchQuery));
+    
+    const noteList = document.getElementById("noteList");
+    noteList.innerHTML = '';
+    
+    filteredNotes.forEach(note => {
+        const noteItem = document.createElement("div");
+        noteItem.className = "note-item";
+        
+        const noteText = document.createElement("p");
+        noteText.textContent = note.content.length > 30 ? note.content.slice(0, 30) + "..." : note.content;
+        
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => deleteNote(note.id);
+        
+        noteItem.appendChild(noteText);
+        noteItem.appendChild(deleteBtn);
+        
+        noteList.appendChild(noteItem);
+    });
+}
+
+// Initial display of notes
+displayNotes();
