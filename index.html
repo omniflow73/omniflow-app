@@ -1,242 +1,107 @@
-"use client";
-import * as React from "react";
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniFlow Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white border-r shadow-md flex flex-col justify-between">
+        <div>
+          <div class="p-6 text-2xl font-bold text-purple-600">Dashero.</div>
+          <nav class="space-y-2 px-6">
+            <a href="#" class="flex items-center space-x-2 text-purple-600 font-semibold bg-purple-100 p-2 rounded">
+              <span>📋</span><span>Dashboard</span>
+            </a>
+            <a href="#" class="flex items-center space-x-2 p-2 hover:bg-purple-50 rounded">
+              <span>👤</span><span>Profile</span>
+            </a>
+            <a href="#" class="flex items-center space-x-2 p-2 hover:bg-purple-50 rounded">
+              <span>⚙️</span><span>Settings</span>
+            </a>
+            <a href="#" class="flex items-center space-x-2 p-2 hover:bg-purple-50 rounded">
+              <span>📅</span><span>Meetings</span>
+            </a>
+            <a href="#" class="flex items-center space-x-2 p-2 hover:bg-purple-50 rounded">
+              <span>❓</span><span>Help</span>
+            </a>
+          </nav>
+        </div>
+        <div class="p-6">
+          <button class="w-full bg-purple-100 text-purple-600 p-3 rounded-lg font-semibold hover:bg-purple-200">
+            + New Item
+          </button>
+          <p class="mt-2 text-sm text-gray-500">Click '+' to create new task</p>
+        </div>
+      </aside>
 
-function TaskManager() {
-  const [categories, setCategories] = useState(() => [
-    "Work",
-    "Personal",
-    "Health",
-    "Learning",
-  ]);
+      <!-- Main Content -->
+      <main class="flex-1 p-8 space-y-6">
+        <div class="flex justify-between items-center">
+          <h1 class="text-3xl font-bold">Hello Sam</h1>
+          <input type="text" placeholder="Search" class="px-4 py-2 border rounded-lg w-64">
+        </div>
+        <p class="text-gray-500">You have an amazing day</p>
 
-  const [priorities, setPriorities] = useState(() => [
-    "Low",
-    "Medium",
-    "High",
-    "Urgent",
-  ]);
+        <!-- Tabs -->
+        <div class="space-x-4">
+          <button class="px-4 py-2 bg-blue-500 text-white rounded-full">Currently Active</button>
+          <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full">Your tasks</button>
+        </div>
 
-  const [selectedCategory, setSelectedCategory] = useState(() => "All");
-
-  const [showTaskDetails, setShowTaskDetails] = useState(() => false);
-
-  const [selectedTask, setSelectedTask] = useState(() => null);
-
-  const [tasks, setTasks] = useState(() => [
-    {
-      id: 1,
-      title: "🌅 Morning Meditation",
-      completed: false,
-      category: "Health",
-      priority: "High",
-      dueDate: "2024-01-20",
-      notes: "Focus on breathing exercises",
-      timeEstimate: 15,
-      timeSpent: 0,
-      subtasks: [
-        {
-          id: 1.1,
-          title: "Set up meditation space",
-          completed: false,
-        },
-        {
-          id: 1.2,
-          title: "10 min mindfulness",
-          completed: false,
-        },
-      ],
-      shared: ["team@example.com"],
-    },
-    {
-      id: 2,
-      title: "💪 Workout Session",
-      completed: false,
-      category: "Health",
-      priority: "Medium",
-      dueDate: "2024-01-20",
-      notes: "Full body workout",
-      timeEstimate: 45,
-      timeSpent: 0,
-      subtasks: [
-        {
-          id: 2.1,
-          title: "Warm up",
-          completed: false,
-        },
-        {
-          id: 2.2,
-          title: "Main exercise",
-          completed: false,
-        },
-        {
-          id: 2.3,
-          title: "Cool down",
-          completed: false,
-        },
-      ],
-      shared: [],
-    },
-    {
-      id: 3,
-      title: "📊 Daily Planning",
-      completed: false,
-      category: "Work",
-      priority: "High",
-      dueDate: "2024-01-20",
-      notes: "Review goals and set priorities",
-      timeEstimate: 20,
-      timeSpent: 0,
-      subtasks: [
-        {
-          id: 3.1,
-          title: "Review yesterday's progress",
-          completed: false,
-        },
-        {
-          id: 3.2,
-          title: "Set today's priorities",
-          completed: false,
-        },
-      ],
-      shared: ["team@example.com"],
-    },
-  ]);
-
-  function toggleTask(id) {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              completed: !task.completed,
-            }
-          : task,
-      ),
-    );
-  }
-
-  return (
-    <div className="bg-white ease-in-out duration-[0.3s] transition-[color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-text-decoration-color,-webkit-backdrop-filter]">
-      <TaskHeader />
-      <TaskList tasks={tasks} toggleTask={toggleTask} />
-      <BottomNavigation />
-    </div>
-  );
-}
-
-function TaskHeader() {
-  return (
-    <header className="p-6 text-3xl font-bold leading-9 text-center text-gray-800 border-b">
-      ✨ My Daily Tasks
-    </header>
-  );
-}
-
-function TaskList({ tasks, toggleTask }) {
-  return (
-    <main className="p-4">
-      {tasks?.map((task, index) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          index={index}
-          toggleTask={toggleTask}
-        />
-      ))}
-    </main>
-  );
-}
-
-function TaskItem({ task, index, toggleTask }) {
-  const gradientBackground =
-    index === 0
-      ? "linear-gradient(to right, rgb(74, 222, 128), rgb(59, 130, 246), rgb(147, 51, 234))"
-      : index === 1
-        ? "linear-gradient(to right, rgb(236, 72, 153), rgb(234, 179, 8), rgb(239, 68, 68))"
-        : "linear-gradient(to right, rgb(99, 102, 241), rgb(147, 51, 234), rgb(236, 72, 153))";
-
-  const completedSubtasks = task.subtasks.filter((st) => st.completed).length;
-
-  return (
-    <article
-      className="p-5 mb-5 rounded-2xl shadow-lg transition-all translate-y-0 cursor-pointer duration-[0.3s] ease-[ease]"
-      onClick={() => toggleTask(task.id)}
-      style={{ backgroundImage: gradientBackground }}
-    >
-      <div className="flex justify-between items-center text-white">
-        <div className="flex flex-col flex-1 gap-2">
-          <div className="flex justify-between items-center w-full">
-            <span
-              className="text-lg font-medium"
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-                opacity: task.completed ? 0.7 : 1,
-              }}
-            >
-              {task.title}
-            </span>
-            <div className="flex gap-3 items-center">
-              <span className="px-2 py-1 text-sm rounded-xl bg-white bg-opacity-20">
-                {task.category}
-              </span>
-              <span className="text-sm">
-                <span>⏰ </span>
-                <span>{task.timeEstimate}</span>
-                <span>m</span>
-              </span>
+        <!-- Main Grid -->
+        <div class="grid grid-cols-3 gap-6">
+          <!-- Illustration + Promo -->
+          <div class="col-span-2 bg-purple-100 p-6 rounded-xl">
+            <div class="flex items-center space-x-4">
+              <img src="https://i.ibb.co/xDn08xW/illustration.png" alt="Illustration" class="w-40">
+              <div>
+                <p class="text-lg font-semibold mb-2">Time to renew Pro Account</p>
+                <p class="text-sm text-gray-600 mb-4">$199 for an year to renew</p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Renew Account</button>
+              </div>
             </div>
           </div>
-          <div className="flex gap-4 items-center text-sm">
-            <span>
-              <span>📅 </span>
-              <span>{task.dueDate}</span>
-            </span>
-            <span>
-              <span>🎯 </span>
-              <span>{task.priority}</span>
-            </span>
-            {task.subtasks.length > 0 ? (
-              <span>
-                <span>📋 </span>
-                <span>{completedSubtasks}</span>
-                <span>/</span>
-                <span>{task.subtasks.length}</span>
-              </span>
-            ) : null}
+
+          <!-- Time Saved -->
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-sm font-semibold text-gray-500 mb-2">Your Time Saved</h2>
+            <div class="text-center">
+              <div class="text-4xl font-bold mb-1">23 Hours</div>
+              <p class="text-sm text-gray-500">Time Wasted vs Working</p>
+            </div>
+          </div>
+
+          <!-- Best / Worst Month -->
+          <div class="bg-white p-4 rounded-xl shadow-sm">
+            <h3 class="text-sm text-gray-500 mb-1">Your Best Month</h3>
+            <div class="text-lg font-semibold">January</div>
+            <p class="text-sm text-gray-500">65 Hours Worked</p>
+          </div>
+          <div class="bg-purple-600 text-white p-4 rounded-xl shadow-sm">
+            <h3 class="text-sm text-purple-200 mb-1">Your Worst Month</h3>
+            <div class="text-lg font-semibold">March</div>
+            <p class="text-sm text-purple-200">65 Hours Worked</p>
+          </div>
+
+          <!-- Time Spent List -->
+          <div class="col-span-3 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-lg font-semibold mb-4">Most Time Spent</h2>
+            <ul class="space-y-3">
+              <li class="flex justify-between">
+                <span>🎯 Designing landing page</span><span class="text-blue-500">12 Hours</span>
+              </li>
+              <li class="flex justify-between">
+                <span>🎯 App design wireframe</span><span class="text-blue-500">23 Hours</span>
+              </li>
+            </ul>
           </div>
         </div>
-        <input
-          type="checkbox"
-          className="w-6 h-6 cursor-pointer"
-          checked={task.completed}
-          onChange={() => toggleTask(task.id)}
-          aria-label={`Mark ${task.title} as ${task.completed ? "incomplete" : "complete"}`}
-        />
-      </div>
-    </article>
-  );
-}
-
-function BottomNavigation() {
-  return (
-    <nav className="flex fixed inset-x-0 bottom-0 justify-around py-2 bg-white border-t border-[1px_0px_0px]">
-      <NavItem icon="📋" label="Tasks" />
-      <NavItem icon="📅" label="Calendar" />
-      <NavItem icon="🔁" label="Habits" />
-      <NavItem icon="📝" label="Notes" />
-      <NavItem icon="⚙️" label="Settings" />
-    </nav>
-  );
-}
-
-function NavItem({ icon, label }) {
-  return (
-    <button className="text-sm leading-5 text-center text-gray-500">
-      <div>{icon}</div>
-      <div>{label}</div>
-    </button>
-  );
-}
-
-export default TaskManager;
+      </main>
+    </div>
+  </body>
+</html>
