@@ -220,3 +220,107 @@ function searchNotes() {
 
 // Initial display of notes
 displayNotes();
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let events = [];
+
+function openEventModal() {
+    document.getElementById("eventModal").style.display = "flex";
+}
+
+function closeEventModal() {
+    document.getElementById("eventModal").style.display = "none";
+}
+
+function saveEvent() {
+    const title = document.getElementById("eventTitle").value.trim();
+    const description = document.getElementById("eventDescription").value.trim();
+
+    if (title && description) {
+        const event = {
+            title,
+            description,
+            date: selectedDate
+        };
+        events.push(event);
+        closeEventModal();
+        displayCalendar();
+    }
+}
+
+function displayCalendar() {
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const calendarGrid = document.getElementById("calendarGrid");
+    calendarGrid.innerHTML = '';
+
+    document.getElementById("month-year").innerText = `${getMonthName(currentMonth)} ${currentYear}`;
+
+    // Create empty cells before the first day of the month
+    for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement("div");
+        calendarGrid.appendChild(emptyCell);
+    }
+
+    // Create cells for each day of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayCell = document.createElement("div");
+        dayCell.innerText = day;
+        dayCell.onclick = () => showDayEvents(day);
+
+        const eventOnDay = events.filter(event => new Date(event.date).getDate() === day);
+        if (eventOnDay.length > 0) {
+            const eventLabel = document.createElement("div");
+            eventLabel.innerText = `${eventOnDay.length} Event(s)`;
+            eventLabel.style.fontSize = '0.8em';
+            eventLabel.style.color = '#ff5722';
+            dayCell.appendChild(eventLabel);
+        }
+
+        calendarGrid.appendChild(dayCell);
+    }
+}
+
+function showDayEvents(day) {
+    selectedDate = new Date(currentYear, currentMonth, day);
+    const dayEvents = events.filter(event => new Date(event.date).getDate() === day);
+    
+    if (dayEvents.length > 0) {
+        let eventsList = `Events for ${day} ${getMonthName(currentMonth)} ${currentYear}:<br>`;
+        dayEvents.forEach(event => {
+            eventsList += `<strong>${event.title}</strong><br>${event.description}<br><br>`;
+        });
+        alert(eventsList);
+    } else {
+        alert(`No events for ${day} ${getMonthName(currentMonth)} ${currentYear}`);
+    }
+}
+
+function prevMonth() {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    displayCalendar();
+}
+
+function nextMonth() {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    displayCalendar();
+}
+
+function getMonthName(monthIndex) {
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return months[monthIndex];
+}
+
+// Initial call to display the calendar
+displayCalendar();
