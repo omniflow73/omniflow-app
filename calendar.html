@@ -1,56 +1,40 @@
-<!-- calendar.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OmniFlow - Calendar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniFlow - Calendar</title>
+    <link rel="stylesheet" href="calendar.css">
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-  <main class="p-4 pb-20">
-    <h1 class="text-2xl font-semibold mb-4">Calendar</h1>
-    <div class="grid grid-cols-7 gap-2 text-center text-sm">
-      <div class="font-semibold">Sun</div>
-      <div class="font-semibold">Mon</div>
-      <div class="font-semibold">Tue</div>
-      <div class="font-semibold">Wed</div>
-      <div class="font-semibold">Thu</div>
-      <div class="font-semibold">Fri</div>
-      <div class="font-semibold">Sat</div>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calendar</h1>
+            <button class="add-event-btn" onclick="openEventModal()">+ Add Event</button>
+        </header>
 
-      <!-- Calendar placeholder dates -->
-      <div class="text-gray-400">30</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
-      <div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div>
-      <div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div>
+        <div class="calendar-header">
+            <button onclick="prevMonth()">&#60;</button>
+            <h2 id="month-year"></h2>
+            <button onclick="nextMonth()">&#62;</button>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Calendar days will be generated here -->
+        </div>
     </div>
-  </main>
 
-  <nav class="fixed bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2">
-    <a href="index.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-      <span class="text-xs">Tasks</span>
-    </a>
-    <a href="calendar.html" class="flex flex-col items-center text-blue-600">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 17h14M5 23h14" /></svg>
-      <span class="text-xs">Calendar</span>
-    </a>
-    <a href="habits.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" /></svg>
-      <span class="text-xs">Habits</span>
-    </a>
-    <a href="notes.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" /></svg>
-      <span class="text-xs">Notes</span>
-    </a>
-    <a href="settings.html" class="flex flex-col items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0-6V9m0 4h.01" /></svg>
-      <span class="text-xs">Settings</span>
-    </a>
-  </nav>
+    <!-- Modal for adding/editing events -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEventModal()">&times;</span>
+            <h3>Add Event</h3>
+            <input type="text" id="eventTitle" placeholder="Event Title">
+            <textarea id="eventDescription" placeholder="Event Description"></textarea>
+            <button onclick="saveEvent()">Save Event</button>
+        </div>
+    </div>
+
+    <script src="calendar.js"></script>
 </body>
 </html>
